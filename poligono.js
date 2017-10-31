@@ -51,7 +51,7 @@ Polygon.prototype.rotate=function(pivot,angle){
 	var pointsprimax3 = [];
 
 	var angle = (angle*Math.PI/180);
-	console.log("angulo radianes"+angle);
+	console.log("angulo radianes: "+angle);
 	var xprima;
 	var yprima;
 

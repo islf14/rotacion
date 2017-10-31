@@ -29,6 +29,8 @@ function fin_poligono(){
         console.log(polygon);
         polygon.draw();
         polygons.push(polygon);
+        console.log("imprimiendo polygons en fin poligono")
+        console.log(polygons);
         console.log("imprimiendo polygons en fin_poligono");
         console.log(polygons);
       points = [];
@@ -46,9 +48,14 @@ function en_lienzo(){
         y = event.pageY - c.offsetTop;
         console.log("x: "+x);
         console.log("y: "+y);
-        //y = convert(y);
+        y = convert(y);
         console.log("nuevo y:"+y);
+        
         Dot.draw(x,y,ctx);
+        
+        console.log("imprimiendo polygons en lienzo")
+			console.log(polygons);
+        
         if(rotating){
             pivot.x = x;
             pivot.y = y;
@@ -122,7 +129,7 @@ Line.prototype.draw = function() {
 
 function add_entero3(x1,y1,x2,y2) {
     //alert("entrando add entero 3");
-		x1 = Number(x1);
+    x1 = Number(x1);
     y1 = Number(y1);
     x2 = Number(x2);
     y2 = Number(y2);
@@ -130,7 +137,7 @@ function add_entero3(x1,y1,x2,y2) {
 		var dif_x = x2-x1;
 		var dif_y = y2-y1;
 		if( y1>y2 ){
-				console.log(y1);
+				//console.log(y1);
 				var aux = x1;
 				x1=x2;
 				x2=aux;
@@ -157,8 +164,7 @@ function add_entero3(x1,y1,x2,y2) {
 
 				if (dif_x>0) {
 					if (dif_x>=dif_y) {
-
-						console.log(dif_x);
+						//console.log(dif_x);
 						for (var i = 1; i < dif_x-1; i++) {
 							if (error < 0) {
 								x = x+1;
@@ -182,7 +188,7 @@ function add_entero3(x1,y1,x2,y2) {
 					}
 					//Caso 2
 					else {
-						console.log(dif_x);
+						//console.log(dif_x);
 						for (var i = 1; i < dif_y-1; i++){
 							if (error < 0) {
 								x = x+1;
@@ -206,26 +212,26 @@ function add_entero3(x1,y1,x2,y2) {
 				}
 				//Caso 3 o 4
 				else {
-					console.log(dif_x);
-					console.log(dif_y);
+					//console.log(dif_x);
+					//console.log(dif_y);
 					if (Math.abs(dif_x)>=dif_y) {
 						console.log(dif_x);
 						for (var i = 1; i < Math.abs(dif_x)-1; i++) {
-							console.log(error);
+							//console.log(error);
 							if (error < 0) {
 								x = x-1;
 								var canvas = document.getElementById("canvas");
 										var ctx = canvas.getContext("2d");
 										ctx.fillStyle = "green";
 										ctx.fillRect(x,y,1,1);
-										console.log(dif_x);
+										//console.log(dif_x);
 								error = error + dif_y;
 							}
 
 							else {
 								x=x-1;
 								y=y+1;
-								console.log(dif_x);
+								//console.log(dif_x);
 								var canvas = document.getElementById("canvas");
 										var ctx = canvas.getContext("2d");
 										ctx.fillStyle = "green";
@@ -237,7 +243,7 @@ function add_entero3(x1,y1,x2,y2) {
 					}
 					//Caso 4
 					else {
-						console.log(dif_x);
+						//console.log(dif_x);
 						for (var i = 1; i < dif_y-1; i++){
 							if (error < 0) {
 								x = x-1;
