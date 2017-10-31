@@ -31,8 +31,7 @@ function fin_poligono(){
         polygons.push(polygon);
         console.log("imprimiendo polygons en fin poligono")
         console.log(polygons);
-        console.log("imprimiendo polygons en fin_poligono");
-        console.log(polygons);
+        
       points = [];
     //$("#start").removeClass("active");
     }
@@ -54,7 +53,7 @@ function en_lienzo(){
         Dot.draw(x,y,ctx);
         
         console.log("imprimiendo polygons en lienzo")
-			console.log(polygons);
+        console.log(polygons);
         
         if(rotating){
             pivot.x = x;
@@ -113,19 +112,6 @@ function graficarPunto(x,y)
        ctx.stroke();
        ctx.fill();
    }
-
-
-function Line(point_start,point_end,ctx){
-	this.point_start = point_start;
-	this.point_end = point_end;
-	this.ctx = ctx;
-
-}
-
-Line.prototype.draw = function() {
-	//alert("graficando linea con add entero3");
-    add_entero3(this.point_start.x,this.point_start.y,this.point_end.x,this.point_end.y);
-};
 
 function add_entero3(x1,y1,x2,y2) {
     //alert("entrando add entero 3");
@@ -279,6 +265,8 @@ function pivote(){
 function rotar(){
 		if(drawn){
 			if(rotating){
+                console.log("imprimiendo polygons en funcion rotar");
+                console.log(polygons);
 				var angle =document.getElementById("angle");
 				rotate(pivot,angle,0);
 			}
