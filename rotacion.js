@@ -47,7 +47,7 @@ function en_lienzo(){
         y = event.pageY - c.offsetTop;
         console.log("x: "+x);
         console.log("y: "+y);
-        y = convert(y);
+        //= convert(y);
         console.log("nuevo y:"+y);
         
         Dot.draw(x,y,ctx);
@@ -267,7 +267,9 @@ function rotar(){
 			if(rotating){
                 console.log("imprimiendo polygons en funcion rotar");
                 console.log(polygons);
-				var angle =document.getElementById("angle");
+				var angle =document.getElementById("angle").value;
+                console.log("angulo recibido");
+                console.log(angle);
 				rotate(pivot,angle,0);
 			}
 		}
@@ -291,3 +293,127 @@ function rotate(pivot,angle,idpolygono){
 function clearScreen(c,ctx){
 	ctx.clearRect(0,0,c.width,c.height);
 }
+
+function mover(){
+		var V = Number(document.getElementById("V").value);
+		var H = Number(document.getElementById("H").value);
+		//debugger;
+		console.log(H,V);
+		//clearScreen(c,ctx);
+		for (var i = 0; i < polygons.length; i++) {
+				polygons[i].move(H,V);
+		}
+	}
+
+
+function Polygon(points,ctx){
+	
+    this.points = points;
+	this.ctx = ctx;
+}
+
+Polygon.prototype.move=function(h,v){
+	for (var i = 0; i < this.points.length; i++) {
+		this.points[i].x=this.points[i].x+h;
+		this.points[i].y=this.points[i].y+v;
+	}
+	this.draw();
+}
+
+Polygon.prototype.draw = function() {
+
+	var points = this.points;
+	var c = this.ctx;
+	var lines = [];
+	var line;
+
+	if(points.length>1){
+		for (var i = 0; i < points.length; i++) {
+
+			if(i!=points.length-1){
+					line = new Line(
+					{
+						x : points[i].x,
+						y : points[i].y
+					},
+					{
+						x : points[i+1].x,
+						y : points[i+1].y
+					},
+					c);
+					line.draw();
+			}
+			else{
+					line = new Line({
+						x : points[points.length-1].x,
+						y : points[points.length-1].y
+					},
+					{
+						x : points[0].x,
+						y : points[0].y
+					},c);
+					line.draw();
+			}
+			lines.push(line);
+		};
+	}
+    console.log("lineas en draw: ")
+	console.log(lines);
+};
+
+Polygon.prototype.rotate=function(pivot,angle){
+
+	var points = this.points;
+	var pointsprima=[];
+	var pointsprimax2 = [];
+	var pointsprimax3 = [];
+
+	var angle = (angle*Math.PI/180);
+	console.log("angulo radianes: "+angle);
+	var xprima;
+	var yprima;
+
+	var xprimax2;
+	var yprimax2;
+
+	var xprimax3;
+	var yprimax3;
+
+
+	for (var i = 0; i < points.length; i++) {
+
+		xprima = points[i].x-pivot.x;
+		yprima = points[i].y-pivot.y;
+
+		xprimax2 = xprima*Math.cos(angle)-yprima*Math.sin(angle);
+		yprimax2 = yprima*Math.cos(angle)+xprima*Math.sin(angle);
+
+		xprimax3 = xprimax2+pivot.x;
+		yprimax3 = yprimax2+pivot.y;
+
+		pointsprimax3.push(
+			{
+				x:xprimax3,
+				y:yprimax3
+			}
+		);
+	}
+
+	this.points = pointsprimax3;
+
+	this.draw();
+
+}
+
+
+
+function Line(point_start,point_end,ctx){
+	this.point_start = point_start;
+	this.point_end = point_end;
+	this.ctx = ctx;
+}
+
+Line.prototype.draw = function() {
+	//alert("graficando linea con add entero3");
+    add_entero3(this.point_start.x,this.point_start.y,this.point_end.x,this.point_end.y);
+};
